@@ -49,4 +49,19 @@ module('Unit | Utilities | job', function (hooks) {
     assert.true(x, 'job executed');
     assert.false(job.running, 'job is still in a stopped state');
   });
+
+  test('it can be executed, returning a promise', async function (assert) {
+    assert.expect(4);
+    let x = false;
+    const promise = new Promise((resolve) => setTimeout(() => {
+      x = true;
+      resolve();
+    }, 10));
+    const job = new Job(() => promise, 1000);
+    assert.false(x, 'job has not executed yet');
+    assert.false(job.running, 'job is in a stopped state');
+    await job.run();
+    assert.true(x, 'job executed');
+    assert.false(job.running, 'job is still in a stopped state');
+  });
 });
