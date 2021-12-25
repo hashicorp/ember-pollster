@@ -4,8 +4,8 @@ import { run } from '@ember/runloop';
 
 /**
  * A job is a wrapper around a vanilla function `fn` which executes `fn` every
- * `frequency` milliseconds.  Jobs may be started and stopped, as well as
- * executed on a one-off basis.
+ * `frequency` milliseconds within an Ember runloop.  Jobs may be started and
+ * stopped, as well as executed on a one-off basis.
  * @module ember-pollster/utilities/job
  */
 class Job {
