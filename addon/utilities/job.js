@@ -6,6 +6,14 @@ import { run } from '@ember/runloop';
  * A job is a wrapper around a vanilla function `fn` which executes `fn` every
  * `frequency` milliseconds within an Ember runloop.  Jobs may be started and
  * stopped, as well as executed on a one-off basis.
+ *
+ * Jobs are designed for straightforward, deterministic testing.  When Ember is
+ * in a test environment, jobs may enter into a running state but are not
+ * automatically executed or scheduled.  Instead, jobs must be executed
+ * explicitly using `job.run()` or (more commonly) via the pollster service.
+ * The trade-off is that test cases relying on job behavior must plan for and
+ * execute jobs as needed.
+ *
  * @module ember-pollster/utilities/job
  */
 class Job {
@@ -47,7 +55,7 @@ class Job {
    * @readonly
    * @type {boolean}
    */
-  get running() {
+  get isRunning() {
     return this.#running;
   }
 
@@ -75,8 +83,8 @@ class Job {
    * Stops the job and cancels any pending run.
    */
   stop() {
-    this.#running = false;
     clearTimeout(this.#timeoutId);
+    this.#running = false;
   }
 
   /**

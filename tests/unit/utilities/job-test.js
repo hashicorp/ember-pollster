@@ -22,21 +22,21 @@ module('Unit | Utilities | job', function (hooks) {
     const job = new Job(() => x = true, 1000);
     assert.false(x, 'job has not executed yet');
     assert.true(job.isTesting, 'job is in a test mode');
-    assert.false(job.running, 'job is in a stopped state');
+    assert.false(job.isRunning, 'job is in a stopped state');
     job.start();
     assert.false(x, 'job has not executed yet');
-    assert.true(job.running, 'job is in a running state');
+    assert.true(job.isRunning, 'job is in a running state');
   });
 
   test('it can start and stop', function (assert) {
     assert.expect(3);
     let x = false;
     const job = new Job(() => x = true, 1000);
-    assert.false(job.running, 'job is in a stopped state');
+    assert.false(job.isRunning, 'job is in a stopped state');
     job.start();
-    assert.true(job.running, 'job is in a running state');
+    assert.true(job.isRunning, 'job is in a running state');
     job.stop();
-    assert.false(job.running, 'job is in a stopped state again');
+    assert.false(job.isRunning, 'job is in a stopped state again');
   });
 
   test('it can be executed on a one-off basis', function (assert) {
@@ -44,10 +44,10 @@ module('Unit | Utilities | job', function (hooks) {
     let x = false;
     const job = new Job(() => x = true, 1000);
     assert.false(x, 'job has not executed yet');
-    assert.false(job.running, 'job is in a stopped state');
+    assert.false(job.isRunning, 'job is in a stopped state');
     job.run();
     assert.true(x, 'job executed');
-    assert.false(job.running, 'job is still in a stopped state');
+    assert.false(job.isRunning, 'job is still in a stopped state');
   });
 
   test('it can be executed, returning a promise', async function (assert) {
@@ -59,9 +59,9 @@ module('Unit | Utilities | job', function (hooks) {
     }, 10));
     const job = new Job(() => promise, 1000);
     assert.false(x, 'job has not executed yet');
-    assert.false(job.running, 'job is in a stopped state');
+    assert.false(job.isRunning, 'job is in a stopped state');
     await job.run();
     assert.true(x, 'job executed');
-    assert.false(job.running, 'job is still in a stopped state');
+    assert.false(job.isRunning, 'job is still in a stopped state');
   });
 });
