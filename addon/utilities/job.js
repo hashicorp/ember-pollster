@@ -17,7 +17,6 @@ import { run } from '@ember/runloop';
  * @module ember-pollster/utilities/job
  */
 class Job {
-
   // =properties
 
   /**

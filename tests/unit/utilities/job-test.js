@@ -19,7 +19,7 @@ module('Unit | Utilities | job', function (hooks) {
   test('it can enter a running state (but not automatically execute) in test mode', function (assert) {
     assert.expect(5);
     let x = false;
-    const job = new Job(() => x = true, 1000);
+    const job = new Job(() => (x = true), 1000);
     assert.false(x, 'job has not executed yet');
     assert.true(job.isTesting, 'job is in a test mode');
     assert.false(job.isRunning, 'job is in a stopped state');
@@ -31,7 +31,7 @@ module('Unit | Utilities | job', function (hooks) {
   test('it can start and stop', function (assert) {
     assert.expect(3);
     let x = false;
-    const job = new Job(() => x = true, 1000);
+    const job = new Job(() => (x = true), 1000);
     assert.false(job.isRunning, 'job is in a stopped state');
     job.start();
     assert.true(job.isRunning, 'job is in a running state');
@@ -42,7 +42,7 @@ module('Unit | Utilities | job', function (hooks) {
   test('it can be executed on a one-off basis', function (assert) {
     assert.expect(4);
     let x = false;
-    const job = new Job(() => x = true, 1000);
+    const job = new Job(() => (x = true), 1000);
     assert.false(x, 'job has not executed yet');
     assert.false(job.isRunning, 'job is in a stopped state');
     job.run();
@@ -53,10 +53,12 @@ module('Unit | Utilities | job', function (hooks) {
   test('it can be executed, returning a promise', async function (assert) {
     assert.expect(4);
     let x = false;
-    const promise = new Promise((resolve) => setTimeout(() => {
-      x = true;
-      resolve();
-    }, 10));
+    const promise = new Promise((resolve) =>
+      setTimeout(() => {
+        x = true;
+        resolve();
+      }, 10)
+    );
     const job = new Job(() => promise, 1000);
     assert.false(x, 'job has not executed yet');
     assert.false(job.isRunning, 'job is in a stopped state');
