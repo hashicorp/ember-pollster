@@ -30,8 +30,7 @@ module('Unit | Utilities | job', function (hooks) {
 
   test('it can start and stop', function (assert) {
     assert.expect(3);
-    let x = false;
-    const job = new Job(() => (x = true), 1000);
+    const job = new Job(() => {}, 1000);
     assert.false(job.isRunning, 'job is in a stopped state');
     job.start();
     assert.true(job.isRunning, 'job is in a running state');

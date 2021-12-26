@@ -9,7 +9,6 @@ import { all } from 'rsvp';
  * and ember-concurrency tasks.
  */
 export default class PollsterService extends Service {
-
   // =properties
 
   /**
@@ -25,7 +24,7 @@ export default class PollsterService extends Service {
    */
   get runningJobs() {
     const runningJobs = [];
-    this.#jobs.forEach(job => {
+    this.#jobs.forEach((job) => {
       if (job.isRunning) runningJobs.push(job);
     });
     return runningJobs;
@@ -79,8 +78,7 @@ export default class PollsterService extends Service {
    * @return {Promise}
    */
   runAll() {
-    const jobRuns = this.runningJobs.map(job => job.run());
+    const jobRuns = this.runningJobs.map((job) => job.run());
     return all(jobRuns);
   }
-
 }
