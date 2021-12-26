@@ -13,9 +13,9 @@ module('Unit | Service | pollster', function (hooks) {
   hooks.beforeEach(function () {
     service = this.owner.lookup('service:pollster');
     x = false;
-    fn = () => x = true;
+    fn = () => (x = true);
     y = false;
-    fn2 = () => y = true;
+    fn2 = () => (y = true);
   });
 
   test('it creates jobs by function', function (assert) {
@@ -41,7 +41,11 @@ module('Unit | Service | pollster', function (hooks) {
     assert.notOk(job, 'job does not exist yet');
     job = service.findOrCreateJob(fn, 1000);
     assert.ok(job, 'job exists');
-    assert.equal(job, service.findOrCreateJob(fn), 'subsequent calls return the same job');
+    assert.strictEqual(
+      job,
+      service.findOrCreateJob(fn),
+      'subsequent calls return the same job'
+    );
     assert.false(x, 'job did not execute yet');
     job.run();
     assert.true(x, 'job executed');
