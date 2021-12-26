@@ -1,8 +1,12 @@
 import Service from '@ember/service';
 import Job from '../utilities/job';
+import { all } from 'rsvp';
 
 /**
- *
+ * Use pollster to manage jobs (functions that execute on a recurring schedule)
+ * in your Ember application.  Pollster jobs are designed for deterministic
+ * testing, making them an ideal replacement for DIY polling and
+ * ember-concurrency tasks.
  */
 export default class PollsterService extends Service {
 
@@ -10,9 +14,30 @@ export default class PollsterService extends Service {
 
   /**
    * Map of jobs created via the pollster service.
-   * @type {array}
+   * @private
+   * @type {Map}
    */
-  #jobs = new Array();
+  #jobs = new Map();
+
+  /**
+   * @readonly
+   * @type {Job[]}
+   */
+  get runningJobs() {
+    const runningJobs = [];
+    this.#jobs.forEach(job => {
+      if (job.isRunning) runningJobs.push(job);
+    });
+    return runningJobs;
+  }
+
+  /**
+   * @readonly
+   * @type {boolean}
+   */
+  get hasRunningJobs() {
+    return !!this.runningJobs.length;
+  }
 
   // =methods
 
@@ -22,7 +47,7 @@ export default class PollsterService extends Service {
    * @return {?Job}
    */
   findJob(fn) {
-    return this.#jobs[fn];
+    return this.#jobs.get(fn);
   }
 
   /**
@@ -33,7 +58,7 @@ export default class PollsterService extends Service {
    */
   createJob(fn, frequency) {
     const job = new Job(fn, frequency);
-    this.#jobs[fn] = job;
+    this.#jobs.set(fn, job);
     return job;
   }
 
@@ -46,6 +71,16 @@ export default class PollsterService extends Service {
    */
   findOrCreateJob(fn, frequency) {
     return this.findJob(fn) || this.createJob(fn, frequency);
+  }
+
+  /**
+   * Explicitly executes any jobs in a running state, collecting them into
+   * a single awaitable promise.
+   * @return {Promise}
+   */
+  runAll() {
+    const jobRuns = this.runningJobs.map(job => job.run());
+    return all(jobRuns);
   }
 
 }
