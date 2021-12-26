@@ -3,10 +3,10 @@ import Job from '../utilities/job';
 import { all } from 'rsvp';
 
 /**
- * Use pollster to manage jobs (functions that execute on a recurring schedule)
- * in your Ember application.  Pollster jobs are designed for deterministic
- * testing, making them an ideal replacement for DIY polling and
- * ember-concurrency tasks.
+ * Use pollster to manage jobs (sync or async functions that execute on a
+ * recurring schedule) in your Ember application.  Pollster jobs are designed
+ * for deterministic testing, making them an ideal replacement for DIY polling
+ * and ember-concurrency tasks.
  */
 export default class PollsterService extends Service {
 
