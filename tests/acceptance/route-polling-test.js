@@ -1,6 +1,7 @@
 import { module, test } from 'qunit';
 import { visit, currentURL, find } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
+import { runAllJobs, hasRunningJobs } from 'ember-pollster/test-support';
 
 // These tests rely on a polling route `/a`.  Whenever the model hook of this
 // route is executed, a counter is incremented.  The polling function refreshes
@@ -12,24 +13,18 @@ import { setupApplicationTest } from 'ember-qunit';
 module('Acceptance | route polling', function (hooks) {
   setupApplicationTest(hooks);
 
-  let service;
-
-  hooks.beforeEach(function () {
-    service = this.owner.lookup('service:pollster');
-  });
-
   test('visiting index', async function (assert) {
     assert.expect(2);
     await visit('/');
     assert.strictEqual(currentURL(), '/');
-    assert.false(service.hasRunningJobs);
+    assert.false(hasRunningJobs());
   });
 
   test('visiting polling route', async function (assert) {
     assert.expect(3);
     await visit('/a');
     assert.strictEqual(currentURL(), '/a');
-    assert.true(service.hasRunningJobs);
+    assert.true(hasRunningJobs());
     assert.strictEqual(
       find('.model-value').textContent.trim(''),
       '0',
@@ -41,19 +36,19 @@ module('Acceptance | route polling', function (hooks) {
     assert.expect(5);
     await visit('/a');
     assert.strictEqual(currentURL(), '/a');
-    assert.true(service.hasRunningJobs);
+    assert.true(hasRunningJobs());
     assert.strictEqual(
       find('.model-value').textContent.trim(''),
       '0',
       'Polling function was not executed'
     );
-    await service.runAll();
+    await runAllJobs();
     assert.strictEqual(
       find('.model-value').textContent.trim(''),
       '1',
       'Polling function executed'
     );
-    await service.runAll();
+    await runAllJobs();
     assert.strictEqual(
       find('.model-value').textContent.trim(''),
       '2',
@@ -68,19 +63,19 @@ module('Acceptance | route polling', function (hooks) {
     await visit('/a/a2');
     await visit('/a');
     assert.strictEqual(currentURL(), '/a');
-    assert.true(service.hasRunningJobs);
+    assert.true(hasRunningJobs());
     assert.strictEqual(
       find('.model-value').textContent.trim(''),
       '0',
       'Polling function was not executed'
     );
-    await service.runAll();
+    await runAllJobs();
     assert.strictEqual(
       find('.model-value').textContent.trim(''),
       '1',
       'Polling function executed'
     );
-    await service.runAll();
+    await runAllJobs();
     assert.strictEqual(
       find('.model-value').textContent.trim(''),
       '2',
@@ -92,8 +87,8 @@ module('Acceptance | route polling', function (hooks) {
     assert.expect(3);
     await visit('/a');
     assert.strictEqual(currentURL(), '/a');
-    assert.true(service.hasRunningJobs);
+    assert.true(hasRunningJobs());
     await visit('/b');
-    assert.false(service.hasRunningJobs);
+    assert.false(hasRunningJobs());
   });
 });
