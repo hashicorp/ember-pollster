@@ -17,7 +17,7 @@ Ember Pollster is compatible with Ember v4.0.
 ## Installation
 
 ```sh
-ember install @randallmorey/ember-pollster
+ember install ember-pollster
 ```
 
 
@@ -42,7 +42,7 @@ For example:
 
 ```js
 import Route from '@ember/routing/route';
-import runEvery from '@randallmorey/ember-pollster/decorators/route/run-every';
+import runEvery from 'ember-pollster/decorators/route/run-every';
 
 export default class MyRoute extends Route {
   model() {
@@ -85,7 +85,7 @@ Just remember to manually stop polling with `job.stop()`.
 To test applications that use Ember Pollster, first import the test helpers:
 
 ```js
-import { runAllJobs, hasRunningJobs } from '@randallmorey/ember-pollster/test-support';
+import { runAllJobs, hasRunningJobs } from 'ember-pollster/test-support';
 ```
 
 To explicitly run jobs as needed throughout your tests, use
