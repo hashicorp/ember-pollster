@@ -68,8 +68,16 @@ service for this use case:
 @service pollster;
 
 createJobAndStartPolling() {
-  const job = pollster.findOrCreateJob(() => this.poller(), 1000);
-  job.start();
+  // Either bind the function to the context first OR pass an arrow function.
+  const fn = () => this.poller();
+  // Call `findOrCreateJob` to avoid creating multiple jobs
+  // for the same function.
+  this.job = this.pollster.findOrCreateJob(fn, 1000);
+  this.job.start();
+}
+
+tearDown() {
+  this.job.stop();
 }
 
 poller() {
