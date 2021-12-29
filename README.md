@@ -61,7 +61,7 @@ export default class MyRoute extends Route {
 
 ### Service Usage
 
-Need to setup an run polling manually?  No problem.  Ember Pollster exposes a
+Need to setup and run polling manually?  No problem.  Ember Pollster exposes a
 service for this use case:
 
 ```js
