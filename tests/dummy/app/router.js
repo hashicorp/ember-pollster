@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MIT
+ */
+
 import EmberRouter from '@ember/routing/router';
 import config from 'dummy/config/environment';
 

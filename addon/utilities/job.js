@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { assert } from '@ember/debug';
 import { isTesting } from '@ember/debug/lib/testing';
 import { run } from '@ember/runloop';
