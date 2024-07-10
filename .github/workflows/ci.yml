@@ -58,7 +58,7 @@ jobs:
           - ember-release
           - ember-beta
           - ember-canary
-          - ember-octane
+          - ember-classic
           - embroider-safe
           - embroider-optimized
 
