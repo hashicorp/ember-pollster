@@ -7,10 +7,10 @@ module.exports = async function () {
   return {
     scenarios: [
       {
-        name: 'ember-lts-3.28',
+        name: 'ember-lts-4.0',
         npm: {
           devDependencies: {
-            'ember-source': '~3.28.0',
+            'ember-source': '~4.0.1',
           },
         },
       },
@@ -38,24 +38,24 @@ module.exports = async function () {
           },
         },
       },
-      {
-        name: 'ember-classic',
-        env: {
-          EMBER_OPTIONAL_FEATURES: JSON.stringify({
-            'application-template-wrapper': true,
-            'default-async-observers': false,
-            'template-only-glimmer-components': false,
-          }),
-        },
-        npm: {
-          devDependencies: {
-            'ember-source': '~3.28.0',
-          },
-          ember: {
-            edition: 'classic',
-          },
-        },
-      },
+      // {
+      //   name: 'ember-classic',
+      //   env: {
+      //     EMBER_OPTIONAL_FEATURES: JSON.stringify({
+      //       'application-template-wrapper': true,
+      //       'default-async-observers': false,
+      //       'template-only-glimmer-components': false,
+      //     }),
+      //   },
+      //   npm: {
+      //     devDependencies: {
+      //       'ember-source': '~4.0.1',
+      //     },
+      //     ember: {
+      //       edition: 'classic',
+      //     },
+      //   },
+      // },
       embroiderSafe(),
       embroiderOptimized(),
     ],
