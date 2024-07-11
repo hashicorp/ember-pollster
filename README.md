@@ -11,7 +11,7 @@ Ember Pollster is compatible with Ember v4.0.
 
 * Ember.js v3.28, v4.0, and above
 * Ember CLI v3.28, v4.0, and above
-* Node.js v12 and above
+* Node.js v18 and above
 
 
 ## Installation
