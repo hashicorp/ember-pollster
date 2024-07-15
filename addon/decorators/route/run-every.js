@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { getOwner } from '@ember/application';
 
 export default function runEvery(frequency) {

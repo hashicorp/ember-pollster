@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MIT
+ */
+
 'use strict';
 
 const getChannelURL = require('ember-source-channel-url');
