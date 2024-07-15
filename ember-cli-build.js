@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MIT
+ */
+
 'use strict';
 
 const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
