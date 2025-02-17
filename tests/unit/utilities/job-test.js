@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import Job from 'ember-pollster/utilities/job';

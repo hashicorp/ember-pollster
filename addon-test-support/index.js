@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { getContext, settled } from '@ember/test-helpers';
 
 const POLLSTER_SERVICE_KEY = 'service:pollster';
