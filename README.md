@@ -1,3 +1,7 @@
+# DEPRECATED
+
+This repo is no longer maintained please consider using [ember-concurrency](https://github.com/machty/ember-concurrency) instead.
+
 # ember-pollster
 
 Ember Pollster is a simple polling service designed for deterministically
