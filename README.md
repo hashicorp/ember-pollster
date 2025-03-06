@@ -1,6 +1,6 @@
-# DEPRECATED
+# ⛔️ DEPRECATED
 
-This repo is no longer maintained please consider using [ember-concurrency](https://github.com/machty/ember-concurrency) instead.
+This project is no longer maintained, please consider using [ember-concurrency](https://github.com/machty/ember-concurrency) instead.
 
 # ember-pollster
 
